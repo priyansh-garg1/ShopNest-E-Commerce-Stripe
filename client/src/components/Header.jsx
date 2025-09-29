@@ -1,11 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
   const { cartItems } = useContext(CartContext);
   const { userInfo, logout } = useAuth();
   const navigate = useNavigate();
@@ -38,56 +36,40 @@ const Header = () => {
           <Link to="/" className="text-2xl font-bold text-gray-900">
             ShopNest
           </Link>
-          <nav className="flex items-center space-x-8">
+          <nav className="flex items-center space-x-6">
             <Link
               to="/"
-              className={`flex items-center text-gray-600 hover:text-indigo-500 transition-colors ${
-                currentPath === "/" ? "text-indigo-500" : ""
-              }`}
+              className="text-gray-600 hover:text-indigo-500 transition-colors"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                x="0px"
-                y="0px"
-                width="24"
-                height="24"
-                viewBox="0 0 32 32"
-              >
-                <path d="M 16 2.59375 L 15.28125 3.28125 L 2.28125 16.28125 L 3.71875 17.71875 L 5 16.4375 L 5 28 L 14 28 L 14 18 L 18 18 L 18 28 L 27 28 L 27 16.4375 L 28.28125 17.71875 L 29.71875 16.28125 L 16.71875 3.28125 Z M 16 5.4375 L 25 14.4375 L 25 26 L 20 26 L 20 16 L 12 16 L 12 26 L 7 26 L 7 14.4375 Z"></path>
-              </svg>
               Home
             </Link>
-
-            <div className="flow-root">
-              <Link
-                to="/cart"
-                className={`group -m-2 flex items-center p-2 ${
-                  currentPath === "/cart" ? "text-indigo-500" : ""
-                }`}
-              >
-                <svg
-                  className="h-6 w-6 flex-shrink-0 text-gray-500 group-hover:text-gray-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.658-.463 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                  />
-                </svg>
-                Cart
-                {itemCount > 0 && (
-                  <span className="ml-2 text-sm font-medium text-white bg-indigo-500 rounded-full px-2 py-0.5">
-                    {itemCount}
-                  </span>
-                )}
-                <span className="sr-only">items in cart, view bag</span>
-              </Link>
-            </div>
+            {userInfo && (
+              <div className="">
+                <Link to="/cart" className="group -m-2 flex items-center p-2 text-gray-600 hover:text-indigo-500">
+                  <svg
+                    className="h-6 w-6 flex-shrink-0 text-gray-500 group-hover:text-gray-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.658-.463 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                    />
+                  </svg>
+                  Cart
+                  {itemCount > 0 && (
+                    <span className="ml-2 text-sm font-medium text-white bg-indigo-500 rounded-full px-2 py-0.5">
+                      {itemCount}
+                    </span>
+                  )}
+                  <span className="sr-only">items in cart, view bag</span>
+                </Link>
+              </div>
+            )}
 
             {userInfo ? (
               <div className="relative" ref={dropdownRef}>
@@ -127,7 +109,9 @@ const Header = () => {
                     <Link
                       to="/myorders"
                       onClick={() => setDropdownOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${
+                        location.pathname === "/myorders" ? "bg-gray-100" : ""
+                      }`}
                     >
                       My Orders
                     </Link>
@@ -146,7 +130,9 @@ const Header = () => {
             ) : (
               <Link
                 to="/auth"
-                className="flex items-center text-gray-600 hover:text-indigo-500 transition-colors"
+                className={`flex items-center text-gray-600 hover:text-indigo-500 transition-colors ${
+                  location.pathname === "/auth" ? "text-indigo-500" : ""
+                }`}
               >
                 <svg
                   className="h-6 w-6 mr-1 text-gray-500"
