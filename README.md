@@ -66,4 +66,4 @@ You will need two terminals open to run both the backend and frontend servers co
 The application will be available at `http://localhost:5173`.
 
 ## Environment Variables (`server/.env`)
-The environment variables required for testing and configuration purposes are already defined in the code itself. You can find these environment variables in the server/.env file, which contains key-value pairs for API URLs, testing flags, and other settings necessary for the application to run in a specific environment.
+The environment variables required for testing and configuration are shared already.
