@@ -26,8 +26,8 @@ Follow these steps to get the development environment running.
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
-cd <repository-folder>
+git clone https://github.com/priyansh-garg1/ShopNest-E-Commerce-Stripe
+cd ShopNest-E-Commerce-Stripe
 ```
 
 ### 2. Backend Setup
